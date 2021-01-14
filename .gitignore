@@ -59,4 +59,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 # OTHERS
-[Aa]ssets/Scenes*
+/[Aa]ssets/Scenes*
