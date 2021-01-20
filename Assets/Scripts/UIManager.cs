@@ -60,6 +60,7 @@ public class UIManager : MonoBehaviour
 
         currentPanel = listPanels[panelIndex];
         currentPanel.SetActive(true);
+        cartaSelecionadaUI.gameObject.SetActive(false);
         StartCoroutine(BemVindoCoroutine());
     }
 
