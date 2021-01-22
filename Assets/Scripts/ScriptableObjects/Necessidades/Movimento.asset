@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Movimento
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Movimento
   imagem: {fileID: 0}
   descricao: 

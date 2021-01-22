@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Valorizacao
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Valorizacao
   imagem: {fileID: 0}
   descricao: 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Proposito
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: "Prop\xF3sito"
   imagem: {fileID: 0}
   descricao: 

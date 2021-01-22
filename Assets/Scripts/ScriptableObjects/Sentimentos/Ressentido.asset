@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17e0b349de17c945897d89c65c70557, type: 3}
   m_Name: Ressentido
   m_EditorClassIdentifier: 
-  tipo: 0
-  nome: 
+  tipo: 1
+  nome: Ressentido
   imagem: {fileID: 0}
   descricao: 

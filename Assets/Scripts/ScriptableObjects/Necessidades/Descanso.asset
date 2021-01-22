@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Descanso
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Descanso
   imagem: {fileID: 0}
   descricao: 

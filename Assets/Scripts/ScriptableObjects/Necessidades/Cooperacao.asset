@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a17e0b349de17c945897d89c65c70557, type: 3}
-  m_Name: NovoDadosCarta
+  m_Name: Cooperacao
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: "Coopera\xE7\xE3o"
   imagem: {fileID: 0}
   descricao: 

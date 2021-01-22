@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Motivacao
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: "Motiva\xE7\xE3o"
   imagem: {fileID: 0}
   descricao: 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Intimidade
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Intimidade
   imagem: {fileID: 0}
   descricao: 

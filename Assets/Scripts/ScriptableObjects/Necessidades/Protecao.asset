@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Protecao
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: "Prote\xE7\xE3o"
   imagem: {fileID: 0}
   descricao: 

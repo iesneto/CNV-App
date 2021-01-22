@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Cuidado
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Cuidado
   imagem: {fileID: 0}
   descricao: 

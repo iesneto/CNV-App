@@ -19,6 +19,7 @@ public class Carta : MonoBehaviour, IPointerClickHandler
             nome.text = dadosCarta.nome;
         if (dadosCarta.imagem != null)
             imagem.sprite = dadosCarta.imagem;
+        else imagem.enabled = false;
         
     }
 

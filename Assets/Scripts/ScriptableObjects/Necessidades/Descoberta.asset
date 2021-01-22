@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Descoberta
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Descoberta
   imagem: {fileID: 0}
   descricao: 

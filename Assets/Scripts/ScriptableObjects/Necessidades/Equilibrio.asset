@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Equilibrio
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Equilibrio
   imagem: {fileID: 0}
   descricao: 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ordem
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: Ordem
   imagem: {fileID: 0}
   descricao: 

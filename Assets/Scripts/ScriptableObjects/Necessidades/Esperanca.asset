@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Esperanca
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: "Esperan\xE7a"
   imagem: {fileID: 0}
   descricao: 

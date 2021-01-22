@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Espaco
   m_EditorClassIdentifier: 
   tipo: 0
-  nome: 
+  nome: "Espa\xE7o"
   imagem: {fileID: 0}
   descricao: 
