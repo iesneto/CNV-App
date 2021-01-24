@@ -61,4 +61,5 @@ crashlytics-build.properties
 # OTHERS
 /[Aa]ssets/Scenes*
 /[Aa]ssets/Recursos*
+/[Aa]ssets/Prefabs*
 

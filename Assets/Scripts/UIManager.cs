@@ -5,29 +5,43 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    #region FIELDS
     [SerializeField] private GameObject objectPanels;
     [SerializeField] private List<GameObject> listPanels;
     [SerializeField] private GameObject currentPanel;
     [SerializeField] private int panelIndex;
+    [SerializeField] private Carta cartaSelecionadaRef;
+    [SerializeField] private GameObject contentNecessidadesDisponiveis;
+    [SerializeField] private GameObject contentNecessidadesSelecionadas;
+    [SerializeField] private GameObject contentSentimentosDisponiveis;
+    [SerializeField] private GameObject contentSentimentosSelecionados;
+    [SerializeField] private GameObject PrefabCartaNecessidadeDisponivel;
+    [SerializeField] private GameObject PrefabCartaNecessidadeSelecionada;
+    [SerializeField] private GameObject PrefabCartaSentimentoDisponivel;
+    [SerializeField] private GameObject PrefabCartaSentimentoSelecionada;
+    #endregion
 
+
+    #region STRUCTS
     [System.Serializable]
-    private struct CartaSelecionadaStruct
+    private struct UICartaSelecionadaStruct
     {
         public GameObject gameObject;
         public Text nome;
         public Image imagem;
         public Text descricao;
     }
-    [SerializeField] private CartaSelecionadaStruct cartaSelecionadaUI;
+    [SerializeField] private UICartaSelecionadaStruct cartaSelecionadaUI;
 
     [System.Serializable]
-    private struct ParametrosUIStruct
+    private struct UIParametrosStruct
     {
         public float boasVindasPainelTime;
     }
-    [SerializeField] private ParametrosUIStruct ParametrosUI;
+    [SerializeField] private UIParametrosStruct ParametrosUI;
+    #endregion
 
-
+    #region SINGLETON
     private static UIManager _instance;
     public static UIManager Instance
     {
@@ -41,9 +55,8 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
+    #endregion
 
-   
-        
 
     private void Awake()
     {
@@ -51,11 +64,16 @@ public class UIManager : MonoBehaviour
         SingletonInitialization();
 
         panelIndex = 0;
-        
-        foreach(Transform child in objectPanels.transform)
+
+        foreach (Transform child in objectPanels.transform)
         {
             child.gameObject.SetActive(false);
             listPanels.Add(child.gameObject);
+        }
+
+        foreach (CartaScrObj scrobj in AppManager.Instance.GetNecessidadesDB())
+        {
+            PreparePrefabNecessidadeDisponivel(scrobj);
         }
 
         currentPanel = listPanels[panelIndex];
@@ -78,14 +96,18 @@ public class UIManager : MonoBehaviour
 
     public void NextPanel()
     {
-        // desabilita painel atual
-        currentPanel.SetActive(false);
-        // aponta para o proximo
-        panelIndex++;
-        // pega o proximo painel
-        currentPanel = listPanels[panelIndex];
-        // habilita o proximo painel
-        currentPanel.SetActive(true);
+        if (panelIndex < listPanels.Count - 1)
+        {
+            // desabilita painel atual
+            currentPanel.SetActive(false);
+            // aponta para o proximo
+            panelIndex++;
+            // pega o proximo painel
+            currentPanel = listPanels[panelIndex];
+            // habilita o proximo painel
+            currentPanel.SetActive(true);
+        }
+        else Debug.Log("Fim dos Paineis");
     }
 
     public void PreviousPanel()
@@ -108,7 +130,7 @@ public class UIManager : MonoBehaviour
 
     public void SelecionarCarta(Carta c)
     {
-
+        cartaSelecionadaRef = c;
         cartaSelecionadaUI.gameObject.SetActive(true);
         cartaSelecionadaUI.nome.text = c.GetName();
         cartaSelecionadaUI.imagem.sprite = c.GetImage();
@@ -117,10 +139,30 @@ public class UIManager : MonoBehaviour
 
     public void CancelarSelecaoCarta()
     {
+        cartaSelecionadaRef = null;
         cartaSelecionadaUI.nome.text = null;
         cartaSelecionadaUI.imagem.sprite = null;
         cartaSelecionadaUI.descricao.text = null;
         cartaSelecionadaUI.gameObject.SetActive(false);
-        
+
     }
+
+    public void ConfirmarSelecaoCarta()
+    {
+        AppManager.Instance.AddCartaSelecionada(cartaSelecionadaRef);
+    }
+
+    public void AddCartaSentimentos()
+    {
+        //cartaSelecionadaRef.gameObject
+    }
+
+
+    private void PreparePrefabNecessidadeDisponivel(CartaScrObj scrObj)
+    {
+        GameObject carta = Instantiate(PrefabCartaNecessidadeDisponivel);
+        carta.GetComponent<Carta>().SetDados(scrObj);
+        carta.transform.SetParent(contentNecessidadesDisponiveis.transform);
+    }
+
 }
