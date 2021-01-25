@@ -165,4 +165,6 @@ public class UIManager : MonoBehaviour
         carta.transform.SetParent(contentNecessidadesDisponiveis.transform);
     }
 
+    
+
 }
