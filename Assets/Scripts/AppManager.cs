@@ -39,6 +39,8 @@ public class AppManager : MonoBehaviour
     private void Awake()
     {
         SingletonInitialization();
+
+        if (UIManager.Instance) UIManager.Instance.Inicializa();
     }
 
     public void AddCartaSelecionada(Carta c)
@@ -55,6 +57,21 @@ public class AppManager : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void RemoveCartaSelecionada(Carta c)
+    {
+        switch (c.GetDados().tipo)
+        {
+            case CartaScrObj.CartaTipo.NECESSIDADE:
+                cartasNecessidadesSelecionadas.Remove(c);
+                break;
+            case CartaScrObj.CartaTipo.SENTIMENTO:
+                cartasSentimentosSelecionadas.Remove(c);
+                break;
+            default:
+                break;
+        }
     }
 
     public List<CartaScrObj> GetNecessidadesDB()

@@ -9,9 +9,29 @@ public class Carta : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Text nome;
     [SerializeField] private Image imagem;
     [SerializeField] private bool selecionada;
+    [SerializeField] private Text descricao;
+    [SerializeField] private Image check;
+    [SerializeField] Vector3 scaleUp;
+    [SerializeField] Vector3 scaleDown;
     public void OnPointerClick(PointerEventData eventData)
     {
-        UIManager.Instance.SelecionarCarta(this);
+        if (selecionada)
+        {
+            //UIManager.Instance.SelecionarCarta(this);
+            AppManager.Instance.RemoveCartaSelecionada(this);
+            selecionada = false;
+            check.enabled = false;
+            gameObject.GetComponent<RectTransform>().localScale = scaleDown;
+
+        }
+        else
+        {
+            AppManager.Instance.AddCartaSelecionada(this);
+            selecionada = true;
+            check.enabled = true;
+            check.enabled = true;
+            gameObject.GetComponent<RectTransform>().localScale = scaleUp;
+        }
     }
 
     private void InicializaCarta()
@@ -21,7 +41,11 @@ public class Carta : MonoBehaviour, IPointerClickHandler
         if (dadosCarta.imagem != null)
             imagem.sprite = dadosCarta.imagem;
         else imagem.enabled = false;
-        
+        if (dadosCarta.descricao != null)
+            descricao.text = dadosCarta.descricao;
+        check.enabled = false;
+        selecionada = false;
+        gameObject.GetComponent<RectTransform>().localScale = scaleDown;
     }
 
     public string GetName()
@@ -50,9 +74,9 @@ public class Carta : MonoBehaviour, IPointerClickHandler
         InicializaCarta();
     }
 
-    public void AlteraStatusSelecao()
-    {
-        selecionada = true ? false : true;
-    }
+    //public void AlteraStatusSelecao()
+    //{
+    //    selecionada = true ? false : true;
+    //}
 
 }

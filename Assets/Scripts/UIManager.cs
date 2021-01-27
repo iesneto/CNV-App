@@ -12,26 +12,26 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int panelIndex;
     [SerializeField] private Carta cartaSelecionadaRef;
     [SerializeField] private GameObject contentNecessidadesDisponiveis;
-    [SerializeField] private GameObject contentNecessidadesSelecionadas;
+   // [SerializeField] private GameObject contentNecessidadesSelecionadas;
     [SerializeField] private GameObject contentSentimentosDisponiveis;
-    [SerializeField] private GameObject contentSentimentosSelecionados;
+   // [SerializeField] private GameObject contentSentimentosSelecionados;
     [SerializeField] private GameObject PrefabCartaNecessidadeDisponivel;
-    [SerializeField] private GameObject PrefabCartaNecessidadeSelecionada;
+   // [SerializeField] private GameObject PrefabCartaNecessidadeSelecionada;
     [SerializeField] private GameObject PrefabCartaSentimentoDisponivel;
-    [SerializeField] private GameObject PrefabCartaSentimentoSelecionada;
+  //  [SerializeField] private GameObject PrefabCartaSentimentoSelecionada;
     #endregion
 
 
     #region STRUCTS
-    [System.Serializable]
-    private struct UICartaSelecionadaStruct
-    {
-        public GameObject gameObject;
-        public Text nome;
-        public Image imagem;
-        public Text descricao;
-    }
-    [SerializeField] private UICartaSelecionadaStruct cartaSelecionadaUI;
+    //[System.Serializable]
+    //private struct UICartaSelecionadaStruct
+    //{
+    //    public GameObject gameObject;
+    //    public Text nome;
+    //    public Image imagem;
+    //    public Text descricao;
+    //}
+    //[SerializeField] private UICartaSelecionadaStruct cartaSelecionadaUI;
 
     [System.Serializable]
     private struct UIParametrosStruct
@@ -62,7 +62,10 @@ public class UIManager : MonoBehaviour
     {
 
         SingletonInitialization();
+    }
 
+    public void Inicializa()
+    {
         panelIndex = 0;
 
         foreach (Transform child in objectPanels.transform)
@@ -76,9 +79,14 @@ public class UIManager : MonoBehaviour
             PreparePrefabNecessidadeDisponivel(scrobj);
         }
 
+        foreach (CartaScrObj scrobj in AppManager.Instance.GetSentimentosDB())
+        {
+            PreparePrefabSentimentoDisponivel(scrobj);
+        }
+
         currentPanel = listPanels[panelIndex];
         currentPanel.SetActive(true);
-        cartaSelecionadaUI.gameObject.SetActive(false);
+        // cartaSelecionadaUI.gameObject.SetActive(false);
         StartCoroutine(BemVindoCoroutine());
     }
 
@@ -131,19 +139,19 @@ public class UIManager : MonoBehaviour
     public void SelecionarCarta(Carta c)
     {
         cartaSelecionadaRef = c;
-        cartaSelecionadaUI.gameObject.SetActive(true);
-        cartaSelecionadaUI.nome.text = c.GetName();
-        cartaSelecionadaUI.imagem.sprite = c.GetImage();
-        cartaSelecionadaUI.descricao.text = c.GetDescricao();
+        //cartaSelecionadaUI.gameObject.SetActive(true);
+        //cartaSelecionadaUI.nome.text = c.GetName();
+        //cartaSelecionadaUI.imagem.sprite = c.GetImage();
+        //cartaSelecionadaUI.descricao.text = c.GetDescricao();
     }
 
     public void CancelarSelecaoCarta()
     {
         cartaSelecionadaRef = null;
-        cartaSelecionadaUI.nome.text = null;
-        cartaSelecionadaUI.imagem.sprite = null;
-        cartaSelecionadaUI.descricao.text = null;
-        cartaSelecionadaUI.gameObject.SetActive(false);
+        //cartaSelecionadaUI.nome.text = null;
+        //cartaSelecionadaUI.imagem.sprite = null;
+        //cartaSelecionadaUI.descricao.text = null;
+        //cartaSelecionadaUI.gameObject.SetActive(false);
 
     }
 
@@ -163,6 +171,13 @@ public class UIManager : MonoBehaviour
         GameObject carta = Instantiate(PrefabCartaNecessidadeDisponivel);
         carta.GetComponent<Carta>().SetDados(scrObj);
         carta.transform.SetParent(contentNecessidadesDisponiveis.transform);
+    }
+
+    private void PreparePrefabSentimentoDisponivel(CartaScrObj scrObj)
+    {
+        GameObject carta = Instantiate(PrefabCartaSentimentoDisponivel);
+        carta.GetComponent<Carta>().SetDados(scrObj);
+        carta.transform.SetParent(contentSentimentosDisponiveis.transform);
     }
 
     
