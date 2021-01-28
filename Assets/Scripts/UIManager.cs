@@ -87,6 +87,10 @@ public class UIManager : MonoBehaviour
         currentPanel = listPanels[panelIndex];
         currentPanel.SetActive(true);
         // cartaSelecionadaUI.gameObject.SetActive(false);
+
+        // Arruma o Grid LayoutGroup dos contents para se adequar a resolução do app
+        // contentNecessidadesDisponiveis.GetComponent<GridLayoutGroup>().
+
         StartCoroutine(BemVindoCoroutine());
     }
 
