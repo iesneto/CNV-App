@@ -10,15 +10,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<GameObject> listPanels;
     [SerializeField] private GameObject currentPanel;
     [SerializeField] private int panelIndex;
-    [SerializeField] private Carta cartaSelecionadaRef;
     [SerializeField] private GameObject contentNecessidadesDisponiveis;
-   // [SerializeField] private GameObject contentNecessidadesSelecionadas;
+    [SerializeField] private GameObject contentNecessidadesSelecionadas;
     [SerializeField] private GameObject contentSentimentosDisponiveis;
-   // [SerializeField] private GameObject contentSentimentosSelecionados;
+    [SerializeField] private GameObject contentSentimentosSelecionados;
     [SerializeField] private GameObject PrefabCartaNecessidadeDisponivel;
-   // [SerializeField] private GameObject PrefabCartaNecessidadeSelecionada;
+    [SerializeField] private GameObject PrefabCartaNecessidadeSelecionada;
     [SerializeField] private GameObject PrefabCartaSentimentoDisponivel;
-  //  [SerializeField] private GameObject PrefabCartaSentimentoSelecionada;
+    [SerializeField] private GameObject PrefabCartaSentimentoSelecionada;
     #endregion
 
 
@@ -86,7 +85,6 @@ public class UIManager : MonoBehaviour
 
         currentPanel = listPanels[panelIndex];
         currentPanel.SetActive(true);
-        // cartaSelecionadaUI.gameObject.SetActive(false);
 
         // Arruma o Grid LayoutGroup dos contents para se adequar a resolução do app
         // contentNecessidadesDisponiveis.GetComponent<GridLayoutGroup>().
@@ -140,46 +138,50 @@ public class UIManager : MonoBehaviour
         NextPanel();
     }
 
-    public void SelecionarCarta(Carta c)
+    public void SelecionaCartaNecessidade(Carta c)
     {
-        cartaSelecionadaRef = c;
-        //cartaSelecionadaUI.gameObject.SetActive(true);
-        //cartaSelecionadaUI.nome.text = c.GetName();
-        //cartaSelecionadaUI.imagem.sprite = c.GetImage();
-        //cartaSelecionadaUI.descricao.text = c.GetDescricao();
+        GameObject cartaSel = Instantiate(PrefabCartaNecessidadeSelecionada);
+        cartaSel.GetComponent<Carta>().SetDados(c.GetDados());
+        cartaSel.transform.SetParent(contentNecessidadesSelecionadas.transform);
+        c.GetDados().RefSelecionada = cartaSel.GetComponent<Carta>();
     }
 
-    public void CancelarSelecaoCarta()
+    public void SelecionaCartaSentimento(Carta c)
     {
-        cartaSelecionadaRef = null;
-        //cartaSelecionadaUI.nome.text = null;
-        //cartaSelecionadaUI.imagem.sprite = null;
-        //cartaSelecionadaUI.descricao.text = null;
-        //cartaSelecionadaUI.gameObject.SetActive(false);
+        GameObject cartaSel = Instantiate(PrefabCartaSentimentoSelecionada);
+        cartaSel.GetComponent<Carta>().SetDados(c.GetDados());
+        cartaSel.transform.SetParent(contentSentimentosSelecionados.transform);
+        c.GetDados().RefSelecionada = cartaSel.GetComponent<Carta>();
+    }
+
+
+    public void DeselecionaCarta(Carta c)
+    {
+       
 
     }
 
-    public void ConfirmarSelecaoCarta()
-    {
-        AppManager.Instance.AddCartaSelecionada(cartaSelecionadaRef);
-    }
+    
 
-    public void AddCartaSentimentos()
-    {
-        //cartaSelecionadaRef.gameObject
-    }
+    //public void AddCartaSentimentos()
+    //{
+
+    //}
 
 
     private void PreparePrefabNecessidadeDisponivel(CartaScrObj scrObj)
     {
         GameObject carta = Instantiate(PrefabCartaNecessidadeDisponivel);
+        scrObj.RefDisponivel = carta.GetComponent<Carta>();
         carta.GetComponent<Carta>().SetDados(scrObj);
         carta.transform.SetParent(contentNecessidadesDisponiveis.transform);
+        
     }
 
     private void PreparePrefabSentimentoDisponivel(CartaScrObj scrObj)
     {
         GameObject carta = Instantiate(PrefabCartaSentimentoDisponivel);
+        scrObj.RefDisponivel = carta.GetComponent<Carta>();
         carta.GetComponent<Carta>().SetDados(scrObj);
         carta.transform.SetParent(contentSentimentosDisponiveis.transform);
     }

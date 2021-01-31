@@ -49,29 +49,35 @@ public class AppManager : MonoBehaviour
         {
             case CartaScrObj.CartaTipo.NECESSIDADE:
                 cartasNecessidadesSelecionadas.Add(c);
+                UIManager.Instance.SelecionaCartaNecessidade(c);
                 break;
             case CartaScrObj.CartaTipo.SENTIMENTO:
                 cartasSentimentosSelecionadas.Add(c);
+                UIManager.Instance.SelecionaCartaSentimento(c);
                 break;
             default:
                 break;
         }
-
+        c.SelecionaCarta();
     }
 
     public void RemoveCartaSelecionada(Carta c)
     {
-        switch (c.GetDados().tipo)
+        Carta csel = c.GetDados().RefSelecionada;
+        Carta cdisp = c.GetDados().RefDisponivel;
+        switch (cdisp.GetDados().tipo)
         {
             case CartaScrObj.CartaTipo.NECESSIDADE:
-                cartasNecessidadesSelecionadas.Remove(c);
+                cartasNecessidadesSelecionadas.Remove(cdisp);
                 break;
             case CartaScrObj.CartaTipo.SENTIMENTO:
-                cartasSentimentosSelecionadas.Remove(c);
+                cartasSentimentosSelecionadas.Remove(cdisp);
                 break;
             default:
                 break;
         }
+        cdisp.DeselecionaCarta();
+        Destroy(csel.gameObject);
     }
 
     public List<CartaScrObj> GetNecessidadesDB()

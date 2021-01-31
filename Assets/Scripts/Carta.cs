@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Carta : MonoBehaviour, IPointerClickHandler
 {
+    public enum TipoPainel { DISPONIVEL, SELECIONADO}
     [SerializeField] private CartaScrObj dadosCarta;
     [SerializeField] private Text nome;
     [SerializeField] private Image imagem;
@@ -13,24 +14,33 @@ public class Carta : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image check;
     [SerializeField] Vector3 scaleUp;
     [SerializeField] Vector3 scaleDown;
+    [SerializeField] private TipoPainel painel;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (selecionada)
+        switch (painel)
         {
-            //UIManager.Instance.SelecionarCarta(this);
-            AppManager.Instance.RemoveCartaSelecionada(this);
-            selecionada = false;
-            check.enabled = false;
-            gameObject.GetComponent<RectTransform>().localScale = scaleDown;
+            // Comportamento da carta quando no Painel disponível
+            case TipoPainel.DISPONIVEL:
+                if (selecionada)
+                {
+                    //UIManager.Instance.SelecionarCarta(this);
+                    AppManager.Instance.RemoveCartaSelecionada(this);
+                    
 
-        }
-        else
-        {
-            AppManager.Instance.AddCartaSelecionada(this);
-            selecionada = true;
-            check.enabled = true;
-            check.enabled = true;
-            gameObject.GetComponent<RectTransform>().localScale = scaleUp;
+                }
+                else
+                {
+                    AppManager.Instance.AddCartaSelecionada(this);
+                    
+                }
+                break;
+
+            // Comportamento da carta quando no Painel Selecionada
+            case TipoPainel.SELECIONADO:
+                AppManager.Instance.RemoveCartaSelecionada(this);
+                break;
+            default:
+                break;
         }
     }
 
@@ -43,9 +53,13 @@ public class Carta : MonoBehaviour, IPointerClickHandler
         else imagem.enabled = false;
         if (dadosCarta.descricao != null)
             descricao.text = dadosCarta.descricao;
-        check.enabled = false;
-        selecionada = false;
-        gameObject.GetComponent<RectTransform>().localScale = scaleDown;
+        if (painel == TipoPainel.DISPONIVEL)
+        {
+            check.enabled = false;
+            selecionada = false;
+            gameObject.GetComponent<RectTransform>().localScale = scaleDown;
+        }
+        
     }
 
     public string GetName()
@@ -68,15 +82,28 @@ public class Carta : MonoBehaviour, IPointerClickHandler
         return dadosCarta;
     }
 
+    public TipoPainel GetPainel()
+    {
+        return painel;
+    }
+
     public void SetDados(CartaScrObj dados)
     {
         dadosCarta = dados;
         InicializaCarta();
     }
 
-    //public void AlteraStatusSelecao()
-    //{
-    //    selecionada = true ? false : true;
-    //}
+    public void DeselecionaCarta()
+    {
+        selecionada = false;
+        check.enabled = false;
+        gameObject.GetComponent<RectTransform>().localScale = scaleDown;
+    }
 
+    public void SelecionaCarta()
+    {
+        selecionada = true;
+        check.enabled = true;
+        gameObject.GetComponent<RectTransform>().localScale = scaleUp;
+    }
 }
