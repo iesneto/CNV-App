@@ -47,10 +47,10 @@ public class Carta : MonoBehaviour, IPointerClickHandler
     private void InicializaCarta()
     {
         if (dadosCarta.nome != null)
-            nome.text = dadosCarta.nome;
-        if (dadosCarta.imagem != null)
-            imagem.sprite = dadosCarta.imagem;
-        else imagem.enabled = false;
+            nome.text = dadosCarta.nome.ToUpper();
+        //if (dadosCarta.imagem != null)
+        //    imagem.sprite = dadosCarta.imagem;
+        //else imagem.enabled = false;
         if (dadosCarta.descricao != null)
             descricao.text = dadosCarta.descricao;
         if (painel == TipoPainel.DISPONIVEL)

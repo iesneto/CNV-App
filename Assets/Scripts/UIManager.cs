@@ -73,14 +73,25 @@ public class UIManager : MonoBehaviour
             listPanels.Add(child.gameObject);
         }
 
+        int i = 0;
         foreach (CartaScrObj scrobj in AppManager.Instance.GetNecessidadesDB())
         {
-            PreparePrefabNecessidadeDisponivel(scrobj);
+            //PreparePrefabNecessidadeDisponivel(scrobj);
+            Carta c = contentNecessidadesDisponiveis.transform.GetChild(i).gameObject.GetComponent<Carta>();
+            c.SetDados(scrobj);
+            scrobj.RefDisponivel = c;
+            i++;
         }
 
+        i = 0;
         foreach (CartaScrObj scrobj in AppManager.Instance.GetSentimentosDB())
         {
-            PreparePrefabSentimentoDisponivel(scrobj);
+            //PreparePrefabSentimentoDisponivel(scrobj);
+            Carta c = contentSentimentosDisponiveis.transform.GetChild(i).gameObject.GetComponent<Carta>();
+            c.SetDados(scrobj);
+            scrobj.RefDisponivel = c;
+            i++;
+
         }
 
         currentPanel = listPanels[panelIndex];
@@ -132,6 +143,15 @@ public class UIManager : MonoBehaviour
         currentPanel.SetActive(true);
     }
 
+    public void OpenPanel(int panelIdx)
+    {
+        currentPanel.SetActive(false);
+
+        currentPanel = listPanels[panelIdx];
+
+        currentPanel.SetActive(true);
+    }
+
     IEnumerator BemVindoCoroutine()
     {
         yield return new WaitForSeconds(ParametrosUI.boasVindasPainelTime);
@@ -169,22 +189,22 @@ public class UIManager : MonoBehaviour
     //}
 
 
-    private void PreparePrefabNecessidadeDisponivel(CartaScrObj scrObj)
-    {
-        GameObject carta = Instantiate(PrefabCartaNecessidadeDisponivel);
-        scrObj.RefDisponivel = carta.GetComponent<Carta>();
-        carta.GetComponent<Carta>().SetDados(scrObj);
-        carta.transform.SetParent(contentNecessidadesDisponiveis.transform);
+    //private void PreparePrefabNecessidadeDisponivel(CartaScrObj scrObj)
+    //{
+    //    GameObject carta = Instantiate(PrefabCartaNecessidadeDisponivel);
+    //    scrObj.RefDisponivel = carta.GetComponent<Carta>();
+    //    carta.GetComponent<Carta>().SetDados(scrObj);
+    //    carta.transform.SetParent(contentNecessidadesDisponiveis.transform);
         
-    }
+    //}
 
-    private void PreparePrefabSentimentoDisponivel(CartaScrObj scrObj)
-    {
-        GameObject carta = Instantiate(PrefabCartaSentimentoDisponivel);
-        scrObj.RefDisponivel = carta.GetComponent<Carta>();
-        carta.GetComponent<Carta>().SetDados(scrObj);
-        carta.transform.SetParent(contentSentimentosDisponiveis.transform);
-    }
+    //private void PreparePrefabSentimentoDisponivel(CartaScrObj scrObj)
+    //{
+    //    GameObject carta = Instantiate(PrefabCartaSentimentoDisponivel);
+    //    scrObj.RefDisponivel = carta.GetComponent<Carta>();
+    //    carta.GetComponent<Carta>().SetDados(scrObj);
+    //    carta.transform.SetParent(contentSentimentosDisponiveis.transform);
+    //}
 
     
 

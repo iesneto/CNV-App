@@ -7,7 +7,7 @@ public class CartaScrObj : ScriptableObject
 
     public CartaTipo tipo;
     public string nome;
-    public Sprite imagem;
+    //public Sprite imagem;
     public string descricao;
 
     public Carta RefSelecionada { get; set; }
