@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class AppManager : MonoBehaviour
 {
-
+    FileManager fileManager;
     [SerializeField] private List<Carta> cartasNecessidadesSelecionadas;
     [SerializeField] private List<Carta> cartasSentimentosSelecionadas;
     [SerializeField] private List<CartaScrObj> DB_CartasNecessidades;
     [SerializeField] private List<CartaScrObj> DB_CartasSentimentos;
+    [SerializeField] private string nome;
+    [SerializeField] private string localidade;
 
     private static AppManager _instance;
     public static AppManager Instance
@@ -22,6 +24,36 @@ public class AppManager : MonoBehaviour
 
             return _instance;
         }
+    }
+
+    public string GetNome()
+    {
+        return nome;
+    }
+
+    public void SetNome(string n)
+    {
+        nome = n;
+    }
+
+    public string GetLocalidade()
+    {
+        return localidade;
+    }
+
+    public void SetLocalidade(string l)
+    {
+        localidade = l;
+    }
+
+    public List<Carta> GetCartasSentimentosSelecionadas()
+    {
+        return cartasSentimentosSelecionadas;
+    }
+
+    public List<Carta> GetCartasNecessidadesSelecionadas()
+    {
+        return cartasNecessidadesSelecionadas;
     }
 
     private void SingletonInitialization()
@@ -41,6 +73,9 @@ public class AppManager : MonoBehaviour
         SingletonInitialization();
 
         if (UIManager.Instance) UIManager.Instance.Inicializa();
+
+        fileManager = GetComponent<FileManager>();
+        if (fileManager) fileManager.Inicializa();
     }
 
     public void AddCartaSelecionada(Carta c)

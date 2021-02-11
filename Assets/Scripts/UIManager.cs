@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject PrefabCartaNecessidadeSelecionada;
     [SerializeField] private GameObject PrefabCartaSentimentoDisponivel;
     [SerializeField] private GameObject PrefabCartaSentimentoSelecionada;
+    [SerializeField] private InputField NomeInputField;
+    [SerializeField] private InputField LocalidadeInputField;
+    [SerializeField] private InputField SugestaoInputField;
     #endregion
 
 
@@ -150,6 +153,8 @@ public class UIManager : MonoBehaviour
         currentPanel = listPanels[panelIdx];
 
         currentPanel.SetActive(true);
+
+        panelIndex = panelIdx;
     }
 
     IEnumerator BemVindoCoroutine()
@@ -181,6 +186,20 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void SetaInfoUsuario()
+    {
+        if (NomeInputField.text != null) AppManager.Instance.SetNome(NomeInputField.text);
+        else AppManager.Instance.SetNome("Anônimo");
+
+        if (LocalidadeInputField.text != null) AppManager.Instance.SetLocalidade(LocalidadeInputField.text);
+        else AppManager.Instance.SetLocalidade("Sem Lugar");
+
+    }
+
+    public string GetSugestao()
+    {
+        return SugestaoInputField.text;
+    }
     
 
     //public void AddCartaSentimentos()
