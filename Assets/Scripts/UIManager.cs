@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<GameObject> listPanels;
     [SerializeField] private GameObject currentPanel;
     [SerializeField] private int panelIndex;
+    [SerializeField] private ScrollRect NecessidadesScrollRect;
+    [SerializeField] private ScrollRect SentimentosScrollRect;
     [SerializeField] private GameObject contentNecessidadesDisponiveis;
     [SerializeField] private GameObject contentNecessidadesSelecionadas;
     [SerializeField] private GameObject contentSentimentosDisponiveis;
@@ -180,19 +182,24 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void DeselecionaCarta(Carta c)
+    public void LimpaCampos()
     {
-       
-
+        SugestaoInputField.text = "";
+        NomeInputField.text = "";
+        LocalidadeInputField.text = "";
+        SentimentosScrollRect.horizontalNormalizedPosition = 0f;
+        NecessidadesScrollRect.horizontalNormalizedPosition = 0f;
     }
 
     public void SetaInfoUsuario()
     {
-        if (NomeInputField.text != null) AppManager.Instance.SetNome(NomeInputField.text);
+        if (NomeInputField.text != "") AppManager.Instance.SetNome(NomeInputField.text);
         else AppManager.Instance.SetNome("Anônimo");
 
-        if (LocalidadeInputField.text != null) AppManager.Instance.SetLocalidade(LocalidadeInputField.text);
+        if (LocalidadeInputField.text != "") AppManager.Instance.SetLocalidade(LocalidadeInputField.text);
         else AppManager.Instance.SetLocalidade("Sem Lugar");
+
+        
 
     }
 

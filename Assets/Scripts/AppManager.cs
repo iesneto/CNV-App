@@ -124,4 +124,19 @@ public class AppManager : MonoBehaviour
     {
         return DB_CartasSentimentos;
     }
+
+    public void ResetDados()
+    {
+        nome = "";
+        localidade = "";
+        while(cartasSentimentosSelecionadas.Count > 0)
+        {
+            RemoveCartaSelecionada(cartasSentimentosSelecionadas[0]);
+        }
+
+        while (cartasNecessidadesSelecionadas.Count > 0)
+        {
+            RemoveCartaSelecionada(cartasNecessidadesSelecionadas[0]);
+        }
+    }
 }

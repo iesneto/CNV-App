@@ -15,8 +15,10 @@ public class FileManager : MonoBehaviour
     public void Inicializa()
     {
 #if UNITY_STANDALONE && !UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IPHONE
-
-        filePath = filePathStandAlone + "./" nomeArquivo + ".txt";
+        
+        nomeArquivo = "LOG";
+        System.IO.Directory.CreateDirectory(filePathStandAlone);
+        filePath = filePathStandAlone + nomeArquivo;
 #else
         // este código executará no editor, iphone e android builds
         filePath = Application.persistentDataPath + "./" + nomeArquivo;
@@ -47,8 +49,8 @@ public class FileManager : MonoBehaviour
         {
             Carta c = AppManager.Instance.GetCartasSentimentosSelecionadas()[i];
             if (i == AppManager.Instance.GetCartasSentimentosSelecionadas().Count - 1)
-                content = "\t" + c.GetDados().nome;
-            else content = "\t" + c.GetDados().nome + ",";
+                content =  c.GetDados().nome;
+            else content = c.GetDados().nome + ", ";
             File.AppendAllText(currentFile, content);
         }
 
@@ -59,8 +61,8 @@ public class FileManager : MonoBehaviour
         {
             Carta c = AppManager.Instance.GetCartasNecessidadesSelecionadas()[i];
             if (i == AppManager.Instance.GetCartasNecessidadesSelecionadas().Count - 1)
-                content = "\t" + c.GetDados().nome;
-            else content = "\t" + c.GetDados().nome + ",";
+                content = c.GetDados().nome;
+            else content = c.GetDados().nome + ", ";
             File.AppendAllText(currentFile, content);
         }
 
@@ -74,9 +76,12 @@ public class FileManager : MonoBehaviour
             File.AppendAllText(currentFile, content);
         }
 
-        content = "\n\nSessão Finalizada - " + System.DateTime.Now.ToString("dd/MM/yyyy\tHH:mm:ss") + "\n\n";
+        content = "\n\nSessão Finalizada - " + System.DateTime.Now.ToString("dd/MM/yyyy\tHH:mm:ss") + "\n\n\n";
         File.AppendAllText(currentFile, content);
 
+
+        AppManager.Instance.ResetDados();
+        UIManager.Instance.LimpaCampos();
     }
 //    public void Save()
 //    {
